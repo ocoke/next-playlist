@@ -1,6 +1,6 @@
 
 import { type NextRequest } from 'next/server'
-const SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token';
+// const SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_PLAYLISTS_URL = 'https://api.spotify.com/v1/me/playlists';
 
 // async function getSpotifyAccessToken(code: string): Promise<string> {
