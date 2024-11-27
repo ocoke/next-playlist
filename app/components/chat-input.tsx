@@ -34,7 +34,7 @@ export default function ChatInput() {
   const [signinInfo, setSigninInfo] = useState<{ access_token: string } | null>(null)
   const [playlists, setPlaylists] = useState<{ id: string, name: string }[]>([])
   const [selectedPlaylist, setSelectedPlaylist] = useState<string>("")
-
+  const router = useRouter()
   useEffect(() => {
     let timer: NodeJS.Timeout
 
@@ -131,7 +131,7 @@ export default function ChatInput() {
     
     
   }
-  const router = useRouter()
+  
 
   return (
     <div className="w-full mx-auto space-y-4">
