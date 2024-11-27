@@ -22,14 +22,10 @@ import {
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { sign } from "crypto"
-
 
 export default function ChatInput() {
   const [inputValue, setInputValue] = useState("")
@@ -115,7 +111,7 @@ export default function ChatInput() {
       }).then(
         (res) => res.json()
       ).then((data) => {
-        for (let track of data.response) {
+        for (const track of data.response) {
           console.log(track)
           playlistText += track.track.name + "-" + track.track.artists[0].name + "\n"
         }

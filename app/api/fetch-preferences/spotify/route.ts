@@ -3,25 +3,25 @@ import { type NextRequest } from 'next/server'
 const SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_PLAYLISTS_URL = 'https://api.spotify.com/v1/me/playlists';
 
-async function getSpotifyAccessToken(code: string): Promise<string> {
-    const response = await fetch(SPOTIFY_TOKEN_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${Buffer.from(
-                `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-            ).toString('base64')}`,
-        },
-        body: new URLSearchParams({
-            grant_type: 'authorization_code',
-            code,
-            redirect_uri: process.env.SPOTIFY_REDIRECT_URI!,
-        }),
-    });
+// async function getSpotifyAccessToken(code: string): Promise<string> {
+//     const response = await fetch(SPOTIFY_TOKEN_URL, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             Authorization: `Basic ${Buffer.from(
+//                 `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+//             ).toString('base64')}`,
+//         },
+//         body: new URLSearchParams({
+//             grant_type: 'authorization_code',
+//             code,
+//             redirect_uri: process.env.SPOTIFY_REDIRECT_URI!,
+//         }),
+//     });
 
-    const data = await response.json();
-    return data.access_token;
-}
+//     const data = await response.json();
+//     return data.access_token;
+// }
 
 async function getSpotifyPlaylists(accessToken: string) {
     const response = await fetch(SPOTIFY_PLAYLISTS_URL, {

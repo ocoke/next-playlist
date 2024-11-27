@@ -1,5 +1,5 @@
 'use client'
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 const SpotifyCallbackPage = () => {

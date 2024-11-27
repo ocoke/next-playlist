@@ -1,7 +1,7 @@
 
 import { type NextRequest } from 'next/server'
-const SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token';
-const SPOTIFY_PLAYLISTS_URL = 'https://api.spotify.com/v1/me/playlists';
+// const SPOTIFY_TOKEN_URL = 'https://accounts.spotify.com/api/token';
+// const SPOTIFY_PLAYLISTS_URL = 'https://api.spotify.com/v1/me/playlists';
 
 async function getSpotifyTracks(accessToken: string, playlistId: string) {
     const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
