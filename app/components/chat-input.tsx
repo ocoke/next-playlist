@@ -197,9 +197,11 @@ export default function ChatInput() {
                 </SelectTrigger>
                 <SelectContent>
                   {playlists.map((playlist) => (
-                    <SelectItem key={playlist.id} value={playlist.id}>
+                    ( playlist && playlist.id && playlist.name ) && (
+                      <SelectItem key={playlist.id} value={playlist.id}>
                       {playlist.name}
                     </SelectItem>
+                    )
                   ))}
                 </SelectContent>
               </Select>
