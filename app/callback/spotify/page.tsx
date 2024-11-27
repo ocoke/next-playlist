@@ -1,8 +1,21 @@
 'use client'
+import { Suspense } from 'react';
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const SpotifyCallbackPage = async () => {
+const Loading = () => {
+  return (
+    <div className="main">
+      <div className="h-[80vh] flex justify-center items-center">
+        <div className="w-full mx-auto">
+          <h1 className="text-3xl font-bold tracking-tighter">Please wait...</h1>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SpotifyCallback = () => {
     const router = useRouter();
     const params = useSearchParams();
 
@@ -31,15 +44,15 @@ const SpotifyCallbackPage = async () => {
         }
     }, []);
 
-    return (
-        <div className="main">
-             <div className="h-[80vh] flex justify-center items-center">
-              <div className="w-full mx-auto">
-                <h1 className="text-3xl font-bold tracking-tighter">Please wait...</h1>
-              </div>
-            </div>
-        </div>
-      );;
+    return <Loading />;
+};
+
+const SpotifyCallbackPage = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SpotifyCallback />
+    </Suspense>
+  );
 };
 
 export default SpotifyCallbackPage;
