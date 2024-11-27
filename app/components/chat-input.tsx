@@ -72,24 +72,30 @@ export default function ChatInput() {
 
   // try to load user preferences from local storage
   useEffect(() => {
-    const signinInfo = localStorage.getItem("spotify_user")
-    if (signinInfo) {
-      setSigninInfo(JSON.parse(signinInfo))
-      const parsedSigninInfo = JSON.parse(signinInfo)
-      fetch(`/api/fetch-preferences/spotify?token=${parsedSigninInfo.access_token}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then((res) => res.json()).then((data) => {
-        console.log(data.response)
-        setPlaylists(data.response)
-      })
-    }
-    const temp_chat = sessionStorage.getItem("temp_chat")
-    if (temp_chat) {
-      setInputValue(temp_chat)
-      sessionStorage.removeItem("temp_chat")
+    try {
+      const signinInfo = localStorage.getItem("spotify_user")
+      if (signinInfo) {
+        setSigninInfo(JSON.parse(signinInfo))
+        const parsedSigninInfo = JSON.parse(signinInfo)
+        fetch(`/api/fetch-preferences/spotify?token=${parsedSigninInfo.access_token}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then((res) => res.json()).then((data) => {
+          if (!data.response) {
+            router.push('/connect')
+          }
+          setPlaylists(data.response)
+        })
+      }
+      const temp_chat = sessionStorage.getItem("temp_chat")
+      if (temp_chat) {
+        setInputValue(temp_chat)
+        sessionStorage.removeItem("temp_chat")
+      }
+    } catch(e) {
+      console.warn(e)
     }
 
   }, [])
@@ -179,11 +185,11 @@ export default function ChatInput() {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Choose a playlist that you want to share</AlertDialogTitle>
+              <AlertDialogTitle>Choose a playlist</AlertDialogTitle>
               <AlertDialogDescription>
                 By providing your playlist to us, the AI can learn more about your preferences and provide better suggestions by the input.
-                We can sync your playlist from Spotify or files.
-
+                If you don&apos;t want to provide a playlist, you can generate directly by clicking <i>Continue</i>.
+        
               </AlertDialogDescription>
               <Select onValueChange={(value) => setSelectedPlaylist(value)}>
                 <SelectTrigger className="w-full mx-auto">

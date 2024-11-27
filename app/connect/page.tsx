@@ -7,9 +7,9 @@ export default function Home() {
   const router = useRouter();
   return (
     <div className="main">
-         <div className="h-[80vh] flex justify-center items-center">
+         <div className="h-[80vh] flex justify-center items-center mb-12">
           <div className="w-full mx-auto">
-            <h1 className="text-3xl font-bold tracking-tighter">Connect with your music preferrences</h1>
+            <h1 className="text-3xl font-bold tracking-tighter">Connect with your music preferences</h1>
             <div className="mt-6">
                 <div className="mb-2"><Button className="bg-green-700 hover:bg-green-800" onClick={
                     () => {

@@ -23,12 +23,12 @@ Your mission is to suggest a personalized music playlist for users based on thei
 3. **Playlist Length**: 
    - The number of songs requested.
 
-4. **Preference for Old Songs**:
+4. **Preference for Existing Songs (already in the references)**:
    - User’s preference for including old songs:
-     - \`none\`: Exclude old songs.
+     - \`none\`: Exclude all the songs that are already in the list.
      - \`some\`: Include a few.
-     - \`mostly\`: Majority are old songs.
-     - \`completely\`: Only old songs.
+     - \`mostly\`: Majority are songs in the reference.
+     - \`completely\`: Only songs in the reference.
 
 ---
 
