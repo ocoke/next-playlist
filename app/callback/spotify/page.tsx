@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const SpotifyCallbackPage = () => {
+const SpotifyCallbackPage = async () => {
     const router = useRouter();
     const params = useSearchParams();
 
