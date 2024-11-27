@@ -1,6 +1,8 @@
 import { streamObject, StreamData } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
+export const maxDuration = 60;
+
 const system: string = `
 
 # AI Instruction for \`next-playlist\` Assistant
