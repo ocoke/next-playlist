@@ -2,43 +2,62 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress"
-
+import { experimental_useObject as useObject } from 'ai/react';
+import { z } from "zod";
 export default function Home() {
     const router = useRouter();
-    const [title, setTitle] = useState<string>('')
-    const [suggestions, setSuggestions] = useState<{ title: string, artist: string }[]>([])
+    // const [title, setTitle] = useState<string>('')
+    // const [suggestions, setSuggestions] = useState<{ title: string, artist: string }[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [analysis, setAnalysis] = useState<string>('')
-    const [suggestionSummary, setSuggestionSummary] = useState<string>('')
+    // const [analysis, setAnalysis] = useState<string>('')
+    // const [suggestionSummary, setSuggestionSummary] = useState<string>('')
     const [progress, setProgress] = useState<number>(0)
+    const { object, submit } = useObject({
+        api: '/api/ai/playlist-suggestions',
+        schema: z.object({
+            title: z.string().describe("A short title summarizing the playlist."),
+            playlist: z.array(
+                z.object({
+                    title: z.string().describe("The title of the song."),
+                    artist: z.string().describe("The name of the artist.")
+                })
+            ).describe("A list of songs in the playlist."),
+            analysis: z.string().describe("A short explanation of how the playlist matches the user's inputs and preferences."),
+            suggestionSummary: z.string().describe("A concise summary of the suggested playlist, highlighting themes and notable choices.")
+        }),
+      });
     useEffect(() => {
         const temp_chat = sessionStorage.getItem("temp_chat")
         if (!temp_chat) {
             router.push('/')
         }
         setIsLoading(true)
-        fetch('/api/ai/playlist-suggestions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ prompt: temp_chat }),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              setTitle(data.response.title)
-              setSuggestions(data.response.playlist)
-              setAnalysis(data.response.analysis)
-              setSuggestionSummary(data.response.suggestionSummary)
-              console.log(suggestions)
-              setIsLoading(false)
-              sessionStorage.removeItem("temp_chat")
-            })
-            .catch((error) => {
-              console.error('Error:', error)
-              setSuggestions([])
-              setIsLoading(false)
-            })
+        submit({
+            prompt: temp_chat,
+        });
+        setIsLoading(false)
+        // fetch('/api/ai/playlist-suggestions', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ prompt: temp_chat }),
+        //   })
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //       setTitle(data.response.title)
+        //       setSuggestions(data.response.playlist)
+        //       setAnalysis(data.response.analysis)
+        //       setSuggestionSummary(data.response.suggestionSummary)
+        //       console.log(suggestions)
+        //       setIsLoading(false)
+        //       sessionStorage.removeItem("temp_chat")
+        //     })
+        //     .catch((error) => {
+        //       console.error('Error:', error)
+        //       setSuggestions([])
+        //       setIsLoading(false)
+        //     })
       }, [])
 
     useEffect(() => {
@@ -56,18 +75,18 @@ export default function Home() {
       <div className="main">
            <div className="my-12">
             <div className="w-full mx-auto">
-              <h1 className="text-3xl font-bold tracking-tighter">{isLoading ? 'Loading...' : title}</h1>
+              <h1 className="text-3xl font-bold tracking-tighter">{(isLoading || !object?.title) ? 'Loading...' : object.title}</h1>
               <div className="mt-6">
-                <div className="text-lg font-medium">{analysis}</div>
-                <div className="text-lg font-medium mt-4">{suggestionSummary}</div>
+                <div className="text-lg font-medium">{(object?.analysis && object.analysis)}</div>
+                <div className="text-lg font-medium mt-4">{(object?.suggestionSummary && object.suggestionSummary)}</div>
                 <div className="mt-4">
                   {isLoading && <Progress value={progress} />
                 }
                 {!isLoading && (
                     <div className="p-4 bg-gray-100 rounded">
                     <ul className="pl-4 list-disc" translate="no">
-                      {!isLoading && suggestions.map((suggestion, index) => (
-                        <li key={index} className="mb-2">{suggestion.title} by {suggestion.artist}</li>
+                      {(!isLoading && object?.playlist) && object.playlist.map((suggestion, index) => (
+                        <li key={index} className="mb-2">{suggestion?.title} by {suggestion?.artist}</li>
                       ))}
                       </ul>
                     </div>

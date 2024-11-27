@@ -1,4 +1,4 @@
-import { generateObject } from "ai";
+import { streamObject, StreamData } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
 const system: string = `
@@ -79,10 +79,30 @@ A short title for the whole playlist
 export async function POST(req: Request) {
     const { prompt }: { prompt: string } = await req.json();
 
-    const { object } = await generateObject({
+    // const { object } = await generateObject({
+    //     model: google("models/gemini-1.5-pro"),
+    //     system,
+    //     prompt,
+    //     schema: z.object({
+    //         title: z.string().describe("A short title summarizing the playlist."),
+    //         playlist: z.array(
+    //             z.object({
+    //                 title: z.string().describe("The title of the song."),
+    //                 artist: z.string().describe("The name of the artist.")
+    //             })
+    //         ).describe("A list of songs in the playlist."),
+    //         analysis: z.string().describe("A short explanation of how the playlist matches the user's inputs and preferences."),
+    //         suggestionSummary: z.string().describe("A concise summary of the suggested playlist, highlighting themes and notable choices.")
+    //     })
+    // });
+    const data = new StreamData();
+    data.append({ test: 'initialized calls' });
+
+    const result = streamObject({
         model: google("models/gemini-1.5-pro"),
         system,
         prompt,
+        // output: 'array',
         schema: z.object({
             title: z.string().describe("A short title summarizing the playlist."),
             playlist: z.array(
@@ -96,5 +116,6 @@ export async function POST(req: Request) {
         })
     });
 
-    return Response.json({ code: 200, response: object });
+    return result.toTextStreamResponse();
+    // return Response.json({ code: 200, response: object });
 }
