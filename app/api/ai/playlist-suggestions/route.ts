@@ -101,7 +101,7 @@ export async function POST(req: Request) {
     data.append({ test: 'initialized calls' });
 
     const result = streamObject({
-        model: google("models/gemini-1.5-pro"),
+        model: google("models/gemini-1.5-flash"),
         system,
         prompt,
         // output: 'array',

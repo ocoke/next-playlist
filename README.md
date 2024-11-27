@@ -16,7 +16,7 @@ Next Playlist is a playlist recommendation tool designed to generate personalize
 
 ## 🔍 AI Services
 
-Next Playlist is currently using Google `Gemini 1.5 Flash 8B` to generate keyword suggestions, and Google `Gemini 1.5 Pro` to generate the playlist. Next Playlist is using [`AI SDK`](https://sdk.vercel.ai/).
+Next Playlist is currently using Google `Gemini 1.5 Flash 8B` to generate keyword suggestions, and Google `Gemini 1.5 Flash` to generate the playlist. Next Playlist is using [`AI SDK`](https://sdk.vercel.ai/) to generate response.
 
 
 ## 🚀 Getting Started
