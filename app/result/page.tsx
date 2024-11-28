@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress"
 import { experimental_useObject as useObject } from 'ai/react';
 import { z } from "zod";
-import ChatInput from "../components/chat-input";
+// import ChatInput from "../components/chat-input";
 export default function Home() {
     const router = useRouter();
     // const [title, setTitle] = useState<string>('')
