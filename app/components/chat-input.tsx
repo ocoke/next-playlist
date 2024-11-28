@@ -84,7 +84,9 @@ export default function ChatInput() {
           },
         }).then((res) => res.json()).then((data) => {
           if (!data.response) {
-            router.push('/connect')
+            localStorage.removeItem("spotify_user")
+            setSigninInfo(null)
+            setPlaylists([])
           }
           setPlaylists(data.response)
         })
