@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress"
 import { experimental_useObject as useObject } from 'ai/react';
 import { z } from "zod";
+import ChatInput from "../components/chat-input";
 export default function Home() {
     const router = useRouter();
     // const [title, setTitle] = useState<string>('')
@@ -28,7 +29,7 @@ export default function Home() {
       });
     useEffect(() => {
         const temp_chat = sessionStorage.getItem("temp_chat")
-        if (!temp_chat) {
+        if (!temp_chat || temp_chat === "") {
             router.push('/')
         }
         setIsLoading(true)
@@ -96,6 +97,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {/* <ChatInput /> */}
       </div>
     );
   }

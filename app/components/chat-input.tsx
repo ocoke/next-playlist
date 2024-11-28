@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 // import { Skeleton } from "@/components/ui/skeleton"
 import { Send } from 'lucide-react'
 import { SkeletonLoader } from "./chat-input-skeleton"
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,6 +34,8 @@ export default function ChatInput() {
   const [signinInfo, setSigninInfo] = useState<{ access_token: string } | null>(null)
   const [playlists, setPlaylists] = useState<{ id: string, name: string }[]>([])
   const [selectedPlaylist, setSelectedPlaylist] = useState<string>("")
+
+  const pathname = usePathname()
   const router = useRouter()
   useEffect(() => {
     let timer: NodeJS.Timeout
@@ -92,7 +94,7 @@ export default function ChatInput() {
         })
       }
       const temp_chat = sessionStorage.getItem("temp_chat")
-      if (temp_chat) {
+      if (temp_chat && pathname === "/") {
         setInputValue(temp_chat)
         sessionStorage.removeItem("temp_chat")
       }
@@ -111,6 +113,9 @@ export default function ChatInput() {
   }
 
   const handleSend = () => {
+    if (!inputValue) {
+      return
+    }
     // fetch all the songs in the playlist
     if (selectedPlaylist) {
       let playlistText = ''
