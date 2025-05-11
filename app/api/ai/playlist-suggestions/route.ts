@@ -107,7 +107,8 @@ export async function POST(req: Request) {
                 z.object({
                     title: z.string().describe("The title of the song."),
                     artist: z.string().describe("The name of the artist."),
-                    genres: z.string().array().describe("The genre of the song")
+                    genre: z.string().describe("The genre of the song"),
+                    genreColor: z.string().describe("The TailwindCSS class name for the genre badge. Example: `bg-amber-200 dark:bg-amber-800` (200 for light, 800 for dark) **ONLY 200 and 800 and following colors would be avaliable: red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|stone|neutral|zinc|gray|slate**")
                 })
             ).describe("A list of songs in the playlist."),
             analysis: z.string().describe("A short explanation of how the playlist matches the user's inputs and preferences."),

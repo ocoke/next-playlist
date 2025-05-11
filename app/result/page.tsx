@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Progress } from "@/components/ui/progress"
-import { experimental_useObject as useObject } from 'ai/react';
+import { experimental_useObject as useObject } from '@ai-sdk/react';
 import { z } from "zod";
 // import ChatInput from "../components/chat-input";
 export default function Home() {
@@ -21,7 +21,8 @@ export default function Home() {
                 z.object({
                     title: z.string().describe("The title of the song."),
                     artist: z.string().describe("The name of the artist."),
-                    genres: z.string().array(),
+                    genre: z.string(),
+                    genreColor: z.string(),
                 })
             ).describe("A list of songs in the playlist."),
             analysis: z.string().describe("A short explanation of how the playlist matches the user's inputs and preferences."),
@@ -38,28 +39,6 @@ export default function Home() {
             prompt: temp_chat,
         });
         setIsLoading(false)
-        // fetch('/api/ai/playlist-suggestions', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ prompt: temp_chat }),
-        //   })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //       setTitle(data.response.title)
-        //       setSuggestions(data.response.playlist)
-        //       setAnalysis(data.response.analysis)
-        //       setSuggestionSummary(data.response.suggestionSummary)
-        //       console.log(suggestions)
-        //       setIsLoading(false)
-        //       sessionStorage.removeItem("temp_chat")
-        //     })
-        //     .catch((error) => {
-        //       console.error('Error:', error)
-        //       setSuggestions([])
-        //       setIsLoading(false)
-        //     })
       }, [])
 
     useEffect(() => {
@@ -88,7 +67,9 @@ export default function Home() {
                     <div className="p-4 bg-gray-100 rounded">
                     <ul className="pl-4 list-disc" translate="no">
                       {(!isLoading && object?.playlist) && object.playlist.map((suggestion, index) => (
-                        <li key={index} className="mb-2">{suggestion?.title} by {suggestion?.artist}</li>
+                        <li key={index} className="mb-2">{suggestion?.title} by {suggestion?.artist} {suggestion?.genre && (
+                          <sup className={`${suggestion?.genreColor} py-1 px-2 rounded-lg text-[10px] whitespace-nowrap ml-2`}>{suggestion?.genre}</sup>
+                        )}</li>
                       ))}
                       </ul>
                     </div>

@@ -61,6 +61,11 @@ export default {
   		}
   	}
   },
+  safelist: [
+	{
+      pattern: /^(bg)-(red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|stone|neutral|zinc|gray|slate)-(200|800)$/,
+    },
+  ],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
