@@ -128,11 +128,11 @@ export default function ChatInput() {
           console.log(track)
           playlistText += track.track.name + "-" + track.track.artists[0].name + "\n"
         }
-        sessionStorage.setItem("temp_chat", `keywords: ${inputValue}\nreference: ${playlistText}\npreference: some\nlength: at least 20`)
+        sessionStorage.setItem("temp_chat", `keywords: ${inputValue}\nreference: ${playlistText}\npreference: some`)
         router.push("/result")
       })
     } else {
-      sessionStorage.setItem("temp_chat", `keywords: ${inputValue}\npreference: some\nlength: at least 20`)
+      sessionStorage.setItem("temp_chat", `keywords: ${inputValue}\npreference: some`)
       router.push("/result")
     }
     

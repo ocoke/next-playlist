@@ -20,7 +20,8 @@ export default function Home() {
             playlist: z.array(
                 z.object({
                     title: z.string().describe("The title of the song."),
-                    artist: z.string().describe("The name of the artist.")
+                    artist: z.string().describe("The name of the artist."),
+                    genres: z.string().array(),
                 })
             ).describe("A list of songs in the playlist."),
             analysis: z.string().describe("A short explanation of how the playlist matches the user's inputs and preferences."),
