@@ -1,6 +1,6 @@
 import { streamObject } from "ai";
 import { google } from "@ai-sdk/google";
-import { GoogleGenerativeAIProviderMetadata } from '@ai-sdk/google';
+// import { GoogleGenerativeAIProviderMetadata } from '@ai-sdk/google';
 import { z } from "zod";
 export const maxDuration = 60;
 
