@@ -2,7 +2,11 @@
 
 > 🎵 Generate your next playlist by keywords and your own musical taste.
 
-Next Playlist is a playlist recommendation tool designed to generate personalized playlists and suggest music genres, types, or themes based on user preferences and specific inputs. Users can connect it with Spotify, Apple Music *(todo)*, or other streaming services to help AI learn their preferences.
+Next Playlist is a playlist recommendation tool designed to generate personalized playlists and suggest music genres, types, or themes based on user preferences and specific inputs. 
+
+Users can connect it with Spotify, Apple Music *(todo)*, or other streaming services to help AI learn their preferences.
+
+It is planning to implement search grounding to improve recommendation accuracy and avoid LLM hallucinations.
 
 ## 🎵 Try Now
 
@@ -21,7 +25,8 @@ Next Playlist is a playlist recommendation tool designed to generate personalize
 
 ## 🔍 AI Services
 
-Next Playlist is currently using Google `Gemini 1.5 Flash 8B` to generate keyword suggestions, and Google `Gemini 1.5 Flash` to generate the playlist. Next Playlist is using [`AI SDK`](https://sdk.vercel.ai/) to generate the response.
+- Next Playlist is currently using Google `Gemini 2.0 Flash` to generate keyword suggestions, and Google `Gemini 2.5 Flash` to generate the playlist.
+- Next Playlist is using [`AI SDK`](https://sdk.vercel.ai/) to generate the response.
 
 
 ## 🚀 Getting Started
