@@ -69,7 +69,7 @@ export async function POST(req: Request) {
   const { prompt }: { prompt: string } = await req.json();
 
   const { object } = await generateObject({
-    model: google('models/gemini-2.0-flash-exp'),
+    model: google('models/gemini-2.5-flash-lite'),
     system,
     prompt,
     schema: z.object({
