@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     const { prompt }: { prompt: string } = await req.json();
 
     const result = streamObject({
-        model: google("gemini-2.5-flash-preview-04-17",
+        model: google("gemini-2.5-flash",
          {
             useSearchGrounding: true,
             dynamicRetrievalConfig: {
